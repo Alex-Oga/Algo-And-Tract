@@ -1,0 +1,287 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PusheenStatues {
+
+    public static int backward(List<List<Integer>> statues, int index, int color) {
+        int total = 0;
+        if (index < 0)
+            return 0;
+        for (int i=index; i>=0; i--) {
+            int smallest = 0;
+            for (int j=0; j<3; j++) {
+                if (color == j)
+                    continue;
+                if (smallest == 0) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+                else if (statues.get(i).get(j) < smallest) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+            }
+            total += smallest;
+        }
+        return total;
+    }
+
+    public static int forward(List<List<Integer>> statues, int index, int color) {
+        int total = 0;
+        if (index >= statues.size())
+            return 0;
+        for (int i=index; i<statues.size(); i++) {
+            int smallest = 0;
+            for (int j=0; j<3; j++) {
+                if (color == j)
+                    continue;
+                if (smallest == 0) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+                else if (statues.get(i).get(j) < smallest) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+            }
+            total += smallest;
+        }
+        return total;
+    }
+    public static void statue(List<List<Integer>> statues, int N) {
+        int total = 1000000000;
+        for (int i=0; i<N; i++) {
+            int smallest = 0;
+            int next = 0;
+            int first = statues.get(i).get(0);
+            int second = statues.get(i).get(1);
+            int third = statues.get(i).get(2);
+            if (first<second && first<third) {
+                smallest = 0;
+                next = first;
+            } else if (second<first && second<third) {
+                smallest = 1;
+                next = second;
+            }
+            else {
+                smallest = 2;
+                next = third;
+            }
+            next += backward(statues, i-1, smallest)+forward(statues, i+1, smallest);
+            if (next < total)
+                total = next;
+        }
+        System.out.println(total);
+    }
+
+    public static void main (String[] args) {
+        int t, N;
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        for (int i=0; i<t; i++) {
+            List<List<Integer>> items = new ArrayList<>();
+            N = sc.nextInt();
+            for (int j=0; j<N; j++) {
+                List<Integer> item = new ArrayList<>();
+                item.add(sc.nextInt());
+                item.add(sc.nextInt());
+                item.add(sc.nextInt());
+                items.add(item);
+            }
+            System.out.print("Case "+(i+1)+": ");
+            statue(items, N);
+        }
+    }
+}
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PusheenStatues {
+
+    public static int backward(List<List<Integer>> statues, int index, int color) {
+        int total = 0;
+        if (index < 0)
+            return 0;
+        for (int i=index; i>=0; i--) {
+            int smallest = 0;
+            for (int j=0; j<3; j++) {
+                if (color == j)
+                    continue;
+                if (smallest == 0) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+                else if (statues.get(i).get(j) < smallest) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+            }
+            total += smallest;
+        }
+        return total;
+    }
+
+    public static int forward(List<List<Integer>> statues, int index, int color) {
+        int total = 0;
+        if (index >= statues.size())
+            return 0;
+        for (int i=index; i<statues.size(); i++) {
+            int smallest = 0;
+            for (int j=0; j<3; j++) {
+                if (color == j)
+                    continue;
+                if (smallest == 0) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+                else if (statues.get(i).get(j) < smallest) {
+                    smallest = statues.get(i).get(j);
+                    color = j;
+                }
+            }
+            total += smallest;
+        }
+        return total;
+    }
+    public static void statue(List<List<Integer>> statues, int N) {
+        int total = 0;
+        for (int i=0; i<N; i++) {
+            int smallest = 0;
+            int next = 0;
+            int first = statues.get(i).get(0);
+            int second = statues.get(i).get(1);
+            int third = statues.get(i).get(2);
+            if (first<second && first<third) {
+                smallest = 0;
+                next = first;
+            } else if (second<first && second<third) {
+                smallest = 1;
+                next = second;
+            }
+            else {
+                smallest = 2;
+                next = third;
+            }
+            next += backward(statues, i-1, smallest)+forward(statues, i+1, smallest);
+            if (total == 0)
+                total = next;
+            else if (next < total)
+                total = next;
+        }
+        System.out.println(total);
+    }
+
+    public static void main (String[] args) {
+        int t, N;
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        for (int i=0; i<t; i++) {
+            List<List<Integer>> items = new ArrayList<>();
+            N = sc.nextInt();
+            for (int j=0; j<N; j++) {
+                List<Integer> item = new ArrayList<>();
+                item.add(sc.nextInt());
+                item.add(sc.nextInt());
+                item.add(sc.nextInt());
+                items.add(item);
+            }
+            System.out.print("Case "+(i+1)+": ");
+            statue(items, N);
+        }
+    }
+}
+
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PusheenStatues {
+
+    public static int forward(List<List<Integer>> statues, int index, int color) {
+        int total = 0;
+        int col = 0;
+        if (index >= statues.size())
+            return 0;
+        for (int i=index; i<statues.size(); i++) {
+            int smallest = 0;
+            for (int j=0; j<3; j++) {
+                if (color == j)
+                    continue;
+                if (smallest == 0) {
+                    smallest = statues.get(i).get(j);
+                    col = j;
+                }
+                else if (statues.get(i).get(j) < smallest) {
+                    smallest = statues.get(i).get(j);
+                    col = j;
+                }
+            }
+            color = col;
+            total += smallest;
+        }
+        return total;
+    }
+    public static void statue(List<List<Integer>> statues, int N) {
+        int total = 1000000000;
+        for (int i=0; i<N; i++) {
+            int smallest = 0;
+            int next = 0;
+            int first = statues.get(i).get(0);
+            int second = statues.get(i).get(1);
+            int third = statues.get(i).get(2);
+            if (first<second && first<third) {
+                smallest = 0;
+                next = first;
+            } else if (second<first && second<third) {
+                smallest = 1;
+                next = second;
+            }
+            else {
+                smallest = 2;
+                next = third;
+            }
+            next += backward(statues, i-1, smallest)+forward(statues, i+1, smallest);
+            if (next < total)
+                total = next;
+        }
+        System.out.println(total);
+    }
+
+    public static void main (String[] args) {
+        int t, N;
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        for (int i=0; i<t; i++) {
+            List<List<Integer>> items = new ArrayList<>();
+            N = sc.nextInt();
+            for (int j=0; j<N; j++) {
+                List<Integer> item = new ArrayList<>();
+                item.add(sc.nextInt());
+                item.add(sc.nextInt());
+                item.add(sc.nextInt());
+                items.add(item);
+            }
+            System.out.print("Case "+(i+1)+": ");
+            statue(items, N);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

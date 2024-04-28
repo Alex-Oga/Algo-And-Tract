@@ -1,0 +1,72 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class PusheenGod {
+
+    public static int knapsackRec(int[] w, int[] v, int n, int W) {
+        if (n <= 0) {
+            return 0;
+        } else if (w[n - 1] > W) {
+            return knapsackRec(w, v, n - 1, W);
+        } else {
+            return Math.max(knapsackRec(w, v, n - 1, W), v[n - 1]
+                    + knapsackRec(w, v, n - 1, W - w[n - 1]));
+        }
+    }
+
+    public static void happy(int N, List<List<Integer>> items, int carryWeight, int[] val, int[] wei) {
+        if (carryWeight < 0) {
+            System.out.print("Impossible");
+        } else if (carryWeight == 0) {
+            System.out.print(0);
+        } else {
+            int total = 0;
+            while (carryWeight != 0) {
+                int hap = 0;
+                int add = knapsackRec(wei, val, N, carryWeight);
+                for (int i=0; i<N; i++) {
+                    if (wei[i] == add) {
+                        hap = val[i];
+                    }
+                }
+                total += add;
+                carryWeight -= hap;
+                if (add == 0) {
+                    carryWeight = 0;
+                }
+            }
+            System.out.println(total);
+        }
+    }
+
+    public static void main (String[] args) {
+        int t, N, weight;
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        for (int i=0; i<t; i++) {
+            List<List<Integer>> items = new ArrayList<>();
+            N = sc.nextInt();
+            weight = sc.nextInt();
+            int[] w = new int[N];
+            int[] v = new int[N];
+            for (int j=0; j<N; j++) {
+                List<Integer> item = new ArrayList<>();
+                int hap = sc.nextInt();
+                item.add(hap);
+                v[j] = hap;
+                int cost = sc.nextInt();
+                item.add(cost);
+                int wei = sc.nextInt();
+                w[j] = wei;
+                item.add(wei);
+                weight -= cost*wei;
+                items.add(item);
+            }
+            System.out.print("Case "+(i+1)+": ");
+            happy(N, items, weight, v, w);
+        }
+    }
+}

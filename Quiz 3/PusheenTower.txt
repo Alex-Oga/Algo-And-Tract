@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Pusheen {
+    public static void push(int N, int k, int[] n) {
+        int allTotal = 0;
+        int divTotal = 0;
+        int nonDiv = 0;
+        for (int i=0; i<N; i++) {
+            allTotal += n[i];
+            if (n[i]%k == 0)
+                divTotal += n[i];
+            else {
+                nonDiv += n[i];
+                if (nonDiv%k == 0) {
+                    divTotal += nonDiv;
+                    nonDiv = 0;
+                }
+            }
+        }
+        if (allTotal%k == 0 && allTotal != 0)
+            System.out.print(""+allTotal);
+        else if (divTotal%k == 0 && divTotal != 0) {
+            System.out.print(""+divTotal);
+        }
+        else {
+            System.out.print("Impossible");
+        }
+        System.out.println("");
+    }
+
+    public static void main (String[] args) {
+        int t, N, k;
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        for (int i=0; i<t; i++) {
+            N = sc.nextInt();
+            k = sc.nextInt();
+            int[] n = new int[N];
+            for (int j=0; j<N; j++) {
+                n[j] = sc.nextInt();
+            }
+            System.out.print("Case "+(i+1)+": ");
+            push(N, k, n);
+        }
+    }
+}
+
+
+
+
+
+
+
+
